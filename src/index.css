@@ -8,28 +8,27 @@
 
 @layer base {
   :root {
-    /* Light mode - luxury whites with yellow accents */
-    --background: 0 0% 98%;
-    --foreground: 0 0% 5%;
+    /* Apple-inspired light theme */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 5%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 3%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
+    --popover-foreground: 0 0% 3%;
 
-    /* Primary: Luxury Yellow */
-    --primary: 48 100% 50%;
-    --primary-foreground: 0 0% 5%;
-    --primary-glow: 48 100% 60%;
+    /* Primary: Royal Blue */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Premium Blue */
-    --secondary: 216 87% 65%;
-    --secondary-foreground: 0 0% 98%;
+    /* Secondary: Soft Gray */
+    --secondary: 210 11% 93%;
+    --secondary-foreground: 0 0% 9%;
 
-    /* Accent: Vibrant Green */
-    --accent: 142 76% 36%;
-    --accent-foreground: 0 0% 98%;
+    /* Accent: Gold */
+    --accent: 48 100% 67%;
+    --accent-foreground: 0 0% 9%;
 
     --muted: 0 0% 95%;
     --muted-foreground: 0 0% 45%;
@@ -82,28 +81,27 @@
   }
 
   .dark {
-    /* Dark mode - luxury blacks with yellow accents */
-    --background: 0 0% 8%;
+    /* Apple-inspired dark theme */
+    --background: 0 0% 3%;
     --foreground: 0 0% 95%;
 
-    --card: 0 0% 12%;
+    --card: 0 0% 5%;
     --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 12%;
+    --popover: 0 0% 5%;
     --popover-foreground: 0 0% 95%;
 
-    /* Primary: Luxury Yellow (unchanged) */
-    --primary: 48 100% 50%;
-    --primary-foreground: 0 0% 5%;
-    --primary-glow: 48 100% 60%;
+    /* Primary: Royal Blue (slightly brighter) */
+    --primary: 217 91% 65%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Premium Blue (darker) */
-    --secondary: 216 87% 55%;
-    --secondary-foreground: 0 0% 98%;
+    /* Secondary: Dark Gray */
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 95%;
 
-    /* Accent: Vibrant Green (adjusted) */
-    --accent: 142 76% 46%;
-    --accent-foreground: 0 0% 98%;
+    /* Accent: Gold (unchanged) */
+    --accent: 48 100% 67%;
+    --accent-foreground: 0 0% 9%;
 
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 60%;

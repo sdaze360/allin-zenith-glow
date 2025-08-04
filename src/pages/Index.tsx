@@ -7,6 +7,7 @@ import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { MissionSection } from '@/components/sections/MissionSection';
 import { FAQSection } from '@/components/sections/FAQSection';
 import { Footer } from '@/components/sections/Footer';
+import { WhatsAppFloat } from '@/components/WhatsAppFloat';
 
 const Index = () => {
   return (
@@ -17,6 +18,7 @@ const Index = () => {
       transition={{ duration: 1 }}
     >
       <Navigation />
+      <WhatsAppFloat />
       <HeroSection />
       <ProductsSection />
       <TestimonialsSection />

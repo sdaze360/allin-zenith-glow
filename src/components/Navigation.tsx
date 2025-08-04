@@ -8,11 +8,12 @@ export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { label: 'Home', href: '#hero' },
-    { label: 'Products', href: '#products' },
-    { label: 'Testimonials', href: '#testimonials' },
-    { label: 'Mission', href: '#mission' },
-    { label: 'FAQ', href: '#faq' },
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
+    { label: 'Why Choose Us', href: '/why-choose-us' },
+    { label: 'Products & Services', href: '/products-services' },
+    { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Contact', href: '/contact' },
   ];
 
   useEffect(() => {
@@ -24,10 +25,14 @@ export function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const handleNavigation = (href: string) => {
+    if (href.startsWith('/')) {
+      window.location.href = href;
+    } else {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
     setIsMobileMenuOpen(false);
   };
@@ -58,7 +63,7 @@ export function Navigation() {
               {navItems.map((item, index) => (
                 <motion.button
                   key={item.label}
-                  onClick={() => scrollToSection(item.href)}
+                  onClick={() => handleNavigation(item.href)}
                   className="text-foreground/80 hover:text-primary smooth-transition font-light"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -116,7 +121,7 @@ export function Navigation() {
                 {navItems.map((item, index) => (
                   <motion.button
                     key={item.label}
-                    onClick={() => scrollToSection(item.href)}
+                    onClick={() => handleNavigation(item.href)}
                     className="block w-full text-left text-xl font-light text-foreground/80 hover:text-primary smooth-transition"
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}

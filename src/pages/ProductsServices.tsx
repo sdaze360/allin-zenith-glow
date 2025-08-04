@@ -1,0 +1,218 @@
+import React from 'react';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/sections/Footer';
+import { WhatsAppFloat } from '@/components/WhatsAppFloat';
+import { GlassCard } from '@/components/ui/GlassCard';
+import { AnimatedSection } from '@/components/ui/AnimatedSection';
+import { AppleButton } from '@/components/ui/AppleButton';
+import { 
+  Palette, 
+  VideoCamera, 
+  MegaphoneSimple, 
+  Printer, 
+  Briefcase, 
+  Camera,
+  Tote,
+  Coffee,
+  TShirt,
+  Watch,
+  Notebook,
+  CaretRight,
+  Upload,
+  Umbrella
+} from 'phosphor-react';
+import { motion } from 'framer-motion';
+
+const products = [
+  { icon: TShirt, name: 'T-Shirts', description: 'Custom branded apparel for all occasions', image: '/api/placeholder/300/200' },
+  { icon: Coffee, name: 'Branded Bottles', description: 'Eco-friendly promotional drinkware', image: '/api/placeholder/300/200' },
+  { icon: Coffee, name: 'Coffee Mugs', description: 'Premium ceramic mugs with custom designs', image: '/api/placeholder/300/200' },
+  { icon: Watch, name: 'Wristbands', description: 'Silicone and fabric promotional wristbands', image: '/api/placeholder/300/200' },
+  { icon: Notebook, name: 'Agendas', description: 'Professional planners and notebooks', image: '/api/placeholder/300/200' },
+  { icon: CaretRight, name: 'Buttons', description: 'Custom pin badges and promotional buttons', image: '/api/placeholder/300/200' },
+  { icon: Upload, name: 'USBs', description: 'Branded flash drives and tech accessories', image: '/api/placeholder/300/200' },
+  { icon: Umbrella, name: 'Umbrellas', description: 'Weather protection with your brand', image: '/api/placeholder/300/200' },
+];
+
+const services = [
+  {
+    icon: Palette,
+    title: 'Logo Design',
+    description: 'Unique brand identities that capture your essence and resonate with your audience.',
+  },
+  {
+    icon: VideoCamera,
+    title: 'Event Video Editing',
+    description: 'Professional video production and editing for corporate events and campaigns.',
+  },
+  {
+    icon: MegaphoneSimple,
+    title: 'Social Media Posters',
+    description: 'Eye-catching graphics designed for maximum engagement across all platforms.',
+  },
+  {
+    icon: Printer,
+    title: 'Printing (Flyers, Banners)',
+    description: 'High-quality print materials from business cards to large format displays.',
+  },
+  {
+    icon: Briefcase,
+    title: 'Company Profiles',
+    description: 'Comprehensive corporate documents that showcase your business professionally.',
+  },
+  {
+    icon: Camera,
+    title: 'Product Photography',
+    description: 'Studio-quality product shots that make your offerings irresistible.',
+  },
+];
+
+export default function ProductsServices() {
+  const handleWhatsAppOrder = () => {
+    window.open('https://wa.me/250780111110', '_blank');
+  };
+
+  return (
+    <div className="min-h-screen">
+      <Navigation />
+      <WhatsAppFloat />
+      
+      <main className="pt-24">
+        {/* Hero Section */}
+        <section className="py-24 px-6 text-center">
+          <div className="container mx-auto">
+            <motion.h1
+              className="text-6xl md:text-8xl font-light mb-8 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              Products & Services
+            </motion.h1>
+            
+            <motion.p
+              className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              From custom branded products to creative media services, 
+              we bring your brand vision to life with premium quality and attention to detail.
+            </motion.p>
+          </div>
+        </section>
+
+        {/* Products Gallery */}
+        <section className="py-24 px-6">
+          <div className="container mx-auto">
+            <AnimatedSection className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-light mb-6 text-foreground">
+                Branded Products
+              </h2>
+              <p className="text-xl text-muted-foreground">
+                High-quality promotional items that make lasting impressions
+              </p>
+            </AnimatedSection>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+              {products.map((product, index) => (
+                <AnimatedSection key={product.name} delay={index * 0.1}>
+                  <GlassCard className="text-center group">
+                    <div className="w-full h-48 bg-muted/20 rounded-2xl mb-6 flex items-center justify-center overflow-hidden">
+                      <product.icon size={48} className="text-primary group-hover:scale-110 transition-transform duration-300" weight="light" />
+                    </div>
+                    
+                    <h3 className="text-xl font-medium mb-3 text-foreground">
+                      {product.name}
+                    </h3>
+                    
+                    <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
+                      {product.description}
+                    </p>
+                    
+                    <AppleButton 
+                      onClick={handleWhatsAppOrder}
+                      variant="primary"
+                      size="sm"
+                      className="w-full"
+                    >
+                      WhatsApp to Order
+                    </AppleButton>
+                  </GlassCard>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Creative Services */}
+        <section className="py-24 px-6 bg-muted/30">
+          <div className="container mx-auto">
+            <AnimatedSection className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-light mb-6 text-foreground">
+                Creative Services
+              </h2>
+              <p className="text-xl text-muted-foreground">
+                Comprehensive design and media solutions for your brand
+              </p>
+            </AnimatedSection>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {services.map((service, index) => (
+                <AnimatedSection key={service.title} delay={index * 0.1}>
+                  <GlassCard className="h-full">
+                    <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                      <service.icon size={32} className="text-primary" weight="light" />
+                    </div>
+                    
+                    <h3 className="text-2xl font-medium mb-4 text-foreground">
+                      {service.title}
+                    </h3>
+                    
+                    <p className="text-muted-foreground leading-relaxed">
+                      {service.description}
+                    </p>
+                  </GlassCard>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-24 px-6">
+          <div className="container mx-auto text-center">
+            <AnimatedSection>
+              <GlassCard className="max-w-4xl mx-auto">
+                <h2 className="text-4xl md:text-5xl font-light mb-6 text-foreground">
+                  Ready to Get Started?
+                </h2>
+                <p className="text-xl text-muted-foreground mb-8">
+                  Contact us today to discuss your project and get a custom quote.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <AppleButton 
+                    onClick={handleWhatsAppOrder}
+                    variant="primary"
+                    size="lg"
+                  >
+                    WhatsApp Us Now
+                  </AppleButton>
+                  <AppleButton 
+                    onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+                    variant="secondary"
+                    size="lg"
+                  >
+                    View Portfolio
+                  </AppleButton>
+                </div>
+              </GlassCard>
+            </AnimatedSection>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
