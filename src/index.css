@@ -8,76 +8,70 @@
 
 @layer base {
   :root {
-    /* Apple-inspired light theme */
+    /* Apple-inspired light theme - Enhanced for better vibrancy */
     --background: 0 0% 100%;
-    --foreground: 0 0% 3%;
+    --foreground: 0 0% 10%;
 
     --card: 0 0% 98%;
-    --card-foreground: 0 0% 3%;
+    --card-foreground: 0 0% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3%;
+    --popover-foreground: 0 0% 15%;
 
-    /* Primary: Royal Blue */
-    --primary: 217 91% 60%;
+    /* Primary: Brand Blue/Teal for light mode */
+    --primary: 197 100% 40%; /* Brand blue/teal */
     --primary-foreground: 0 0% 100%;
+    --primary-glow: 197 100% 60%;
 
-    /* Secondary: Soft Gray */
+    /* Secondary: Soft Gray - Enhanced */
     --secondary: 210 11% 93%;
-    --secondary-foreground: 0 0% 9%;
+    --secondary-foreground: 0 0% 15%;
 
-    /* Accent: Gold */
-    --accent: 48 100% 67%;
-    --accent-foreground: 0 0% 9%;
+    /* Accent: Royal Blue - Now secondary accent */
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
 
     --muted: 0 0% 95%;
-    --muted-foreground: 0 0% 45%;
+    --muted-foreground: 0 0% 35%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 90%;
+    --border: 0 0% 85%;
     --input: 0 0% 95%;
-    --ring: 48 100% 50%;
+    --ring: 197 100% 40%;
 
     --radius: 16px;
 
-    /* Glassmorphism effects */
-    --glass-bg: 255 255 255 / 0.1;
-    --glass-border: 255 255 255 / 0.2;
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    /* Glassmorphism effects - Enhanced for light mode */
+    --glass-bg: 255 255 255 / 0.7;
+    --glass-border: 0 0 0 / 0.08;
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
 
-    /* Neumorphism shadows */
+    /* Neumorphism shadows - Enhanced */
     --neuro-light: 0 0% 100%;
     --neuro-dark: 0 0% 85%;
     --neuro-inset-light: inset 5px 5px 10px hsl(var(--neuro-dark));
     --neuro-inset-dark: inset -5px -5px 10px hsl(var(--neuro-light));
     --neuro-shadow: 5px 5px 10px hsl(var(--neuro-dark)), -5px -5px 10px hsl(var(--neuro-light));
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
+    /* Gradients - Enhanced */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 60%, hsl(var(--accent)) 100%);
     --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--accent)) 100%);
-    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.3) 100%);
 
     /* Animations */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 197 100% 40%;
   }
 
   .dark {
@@ -91,17 +85,17 @@
     --popover: 0 0% 5%;
     --popover-foreground: 0 0% 95%;
 
-    /* Primary: Royal Blue (slightly brighter) */
-    --primary: 217 91% 65%;
-    --primary-foreground: 0 0% 100%;
+    /* Primary: Brand Yellow (slightly brighter for dark mode) */
+    --primary: 48 100% 72%;
+    --primary-foreground: 0 0% 9%;
 
     /* Secondary: Dark Gray */
     --secondary: 0 0% 10%;
     --secondary-foreground: 0 0% 95%;
 
-    /* Accent: Gold (unchanged) */
-    --accent: 48 100% 67%;
-    --accent-foreground: 0 0% 9%;
+    /* Accent: Royal Blue */
+    --accent: 217 91% 65%;
+    --accent-foreground: 0 0% 100%;
 
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 60%;
@@ -160,38 +154,83 @@
 }
 
 @layer components {
-  /* Glassmorphic card */
+  /* Glass card - Enhanced for better light mode visibility */
   .glass-card {
-    @apply backdrop-blur-xl bg-background/10 border border-white/20;
+    @apply backdrop-blur-xl border;
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+    box-shadow: var(--glass-shadow), 0 1px 3px rgba(0, 0, 0, 0.12);
+  }
+
+  .dark .glass-card {
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
     box-shadow: var(--glass-shadow);
   }
 
-  /* Neumorphic button */
+  /* Neuro button - Enhanced for better light mode visibility */
   .neuro-button {
-    @apply relative overflow-hidden rounded-2xl transition-all duration-300;
-    background: hsl(var(--background));
-    box-shadow: var(--neuro-shadow);
+    @apply rounded-2xl font-light tracking-wide relative overflow-hidden;
+    background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
+    border: 1px solid hsl(var(--border));
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.1),
+      0 2px 4px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    color: hsl(var(--primary));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .neuro-button:hover {
-    @apply transform translate-y-0.5;
-    box-shadow: 0 0 20px hsl(var(--primary) / 0.5), var(--neuro-shadow);
+    @apply transform scale-105;
+    box-shadow: 
+      0 8px 24px rgba(0, 0, 0, 0.15),
+      0 4px 8px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
+    color: hsl(var(--primary-foreground));
   }
 
   .neuro-button:active {
-    @apply transform translate-y-1;
-    box-shadow: var(--neuro-inset-light), var(--neuro-inset-dark);
+    @apply transform translate-y-1 scale-95;
+    box-shadow: 
+      0 2px 8px rgba(0, 0, 0, 0.2),
+      inset 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  /* Gradient text */
+  .dark .neuro-button {
+    background: linear-gradient(135deg, hsl(var(--neuro-light)) 0%, hsl(var(--neuro-dark)) 100%);
+    box-shadow: var(--neuro-shadow);
+    color: hsl(var(--foreground));
+  }
+
+  .dark .neuro-button:hover {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
+    color: hsl(var(--primary-foreground));
+  }
+
+  /* Gradient text - Enhanced for better visibility */
   .gradient-text {
     @apply bg-clip-text text-transparent;
     background-image: var(--gradient-primary);
+    color: hsl(var(--primary-foreground));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  /* Blur background */
+  /* Blur background - Enhanced for better light mode visibility */
   .blur-bg {
-    @apply backdrop-blur-md bg-background/80 border-b border-border/50;
+    @apply backdrop-blur-md border-b;
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .dark .blur-bg {
+    background: rgba(0, 0, 0, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   }
 
   /* Smooth transitions */
@@ -254,6 +293,10 @@
 
   .blur-sm {
     filter: blur(4px);
+  }
+
+  .text-brand-gold {
+    color: #C9A13B;
   }
 }
 

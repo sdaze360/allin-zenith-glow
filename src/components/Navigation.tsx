@@ -10,7 +10,6 @@ export function Navigation() {
   const navItems = [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
-    { label: 'Why Choose Us', href: '/why-choose-us' },
     { label: 'Products & Services', href: '/products-services' },
     { label: 'Portfolio', href: '/portfolio' },
     { label: 'Contact', href: '/contact' },
@@ -50,7 +49,7 @@ export function Navigation() {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <motion.div
-              className="text-2xl font-light gradient-text"
+              className="text-2xl font-light gradient-text text-brand-gold dark:text-inherit"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
@@ -64,7 +63,7 @@ export function Navigation() {
                 <motion.button
                   key={item.label}
                   onClick={() => handleNavigation(item.href)}
-                  className="text-foreground/80 hover:text-primary smooth-transition font-light"
+                  className="text-foreground/80 hover:text-brand-gold smooth-transition font-light text-brand-gold dark:text-foreground/80"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 + index * 0.1, duration: 0.8 }}

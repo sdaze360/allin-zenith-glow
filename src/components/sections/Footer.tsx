@@ -12,10 +12,7 @@ import { AnimatedSection } from '../ui/AnimatedSection';
 
 export function Footer() {
   const socialLinks = [
-    { icon: InstagramLogo, href: '#', label: 'Instagram' },
-    { icon: TwitterLogo, href: '#', label: 'Twitter' },
-    { icon: LinkedinLogo, href: '#', label: 'LinkedIn' },
-    { icon: FacebookLogo, href: '#', label: 'Facebook' },
+    { icon: InstagramLogo, href: 'https://instagram.com/allin_production', label: 'Instagram' },
   ];
 
   const quickLinks = [
@@ -43,16 +40,16 @@ export function Footer() {
 
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <EnvelopeSimple size={20} weight="light" className="text-primary" />
-                <span className="text-muted-foreground">hello@allininternational.com</span>
+                <Phone size={20} weight="light" className="text-primary" />
+                <a href="tel:+250780111110" className="text-muted-foreground hover:text-primary smooth-transition">+250 780 111 110</a>
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={20} weight="light" className="text-primary" />
-                <span className="text-muted-foreground">+1 (555) 123-4567</span>
+                <a href="https://wa.me/250780111110" className="text-muted-foreground hover:text-primary smooth-transition">WhatsApp: +250 780 111 110</a>
               </div>
               <div className="flex items-center gap-3">
-                <MapPin size={20} weight="light" className="text-primary" />
-                <span className="text-muted-foreground">New York, NY 10001</span>
+                <InstagramLogo size={20} weight="light" className="text-primary" />
+                <a href="https://instagram.com/allin_production" className="text-muted-foreground hover:text-primary smooth-transition">@allin_production</a>
               </div>
             </div>
           </AnimatedSection>
@@ -92,7 +89,7 @@ export function Footer() {
         <AnimatedSection delay={0.6} className="mt-12 pt-8 border-t border-border/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-muted-foreground text-sm">
-              © 2024 All In International. All rights reserved.
+              © 2025 All In International. All rights reserved.
             </p>
             <div className="flex gap-6 text-sm">
               <a href="#" className="text-muted-foreground hover:text-primary smooth-transition">

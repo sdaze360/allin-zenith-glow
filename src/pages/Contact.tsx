@@ -5,9 +5,17 @@ import { GlassCard } from '@/components/ui/GlassCard';
 import { NeuroButton } from '@/components/ui/NeuroButton';
 import { Footer } from '@/components/sections/Footer';
 import { motion } from 'framer-motion';
-import { EnvelopeSimple, Phone, MapPin } from 'phosphor-react';
+import { EnvelopeSimple, Phone, MapPin, WhatsappLogo, InstagramLogo } from 'phosphor-react';
 
 export default function Contact() {
+  const handleWhatsAppClick = () => {
+    window.open('https://wa.me/250780111110', '_blank');
+  };
+
+  const handleInstagramClick = () => {
+    window.open('https://instagram.com/allin_production', '_blank');
+  };
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -103,25 +111,64 @@ export default function Contact() {
                   <GlassCard>
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
-                        <EnvelopeSimple size={24} weight="light" className="text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-light text-foreground mb-2">Email Us</h3>
-                        <p className="text-muted-foreground">hello@allininternational.com</p>
-                        <p className="text-muted-foreground">support@allininternational.com</p>
-                      </div>
-                    </div>
-                  </GlassCard>
-
-                  <GlassCard>
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
                         <Phone size={24} weight="light" className="text-primary" />
                       </div>
                       <div>
                         <h3 className="text-xl font-light text-foreground mb-2">Call Us</h3>
-                        <p className="text-muted-foreground">+1 (555) 123-4567</p>
-                        <p className="text-muted-foreground">Mon - Fri, 9AM - 6PM EST</p>
+                        <p className="text-muted-foreground">
+                          <a href="tel:+250780111110" className="text-primary hover:underline">
+                            +250 780 111 110
+                          </a>
+                        </p>
+                        <p className="text-muted-foreground">Available 24/7 for urgent projects</p>
+                      </div>
+                    </div>
+                  </GlassCard>
+
+                  <GlassCard>
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-green-500/20 border border-green-500/30 flex items-center justify-center">
+                        <WhatsappLogo size={24} weight="light" className="text-green-500" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-light text-foreground mb-2">WhatsApp</h3>
+                        <p className="text-muted-foreground">
+                          <a href="https://wa.me/250780111110" className="text-green-500 hover:underline">
+                            +250 780 111 110
+                          </a>
+                        </p>
+                        <p className="text-muted-foreground">Quick responses and file sharing</p>
+                        <NeuroButton 
+                          size="sm" 
+                          onClick={handleWhatsAppClick}
+                          className="mt-2"
+                        >
+                          WhatsApp Us
+                        </NeuroButton>
+                      </div>
+                    </div>
+                  </GlassCard>
+
+                  <GlassCard>
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-pink-500/20 border border-pink-500/30 flex items-center justify-center">
+                        <InstagramLogo size={24} weight="light" className="text-pink-500" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-light text-foreground mb-2">Instagram</h3>
+                        <p className="text-muted-foreground">
+                          <a href="https://instagram.com/allin_production" className="text-pink-500 hover:underline">
+                            @allin_production
+                          </a>
+                        </p>
+                        <p className="text-muted-foreground">See our latest work and projects</p>
+                        <NeuroButton 
+                          size="sm" 
+                          onClick={handleInstagramClick}
+                          className="mt-2"
+                        >
+                          Follow Us
+                        </NeuroButton>
                       </div>
                     </div>
                   </GlassCard>
@@ -129,12 +176,12 @@ export default function Contact() {
                   <GlassCard>
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
-                        <MapPin size={24} weight="light" className="text-primary" />
+                        <EnvelopeSimple size={24} weight="light" className="text-primary" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-light text-foreground mb-2">Visit Us</h3>
-                        <p className="text-muted-foreground">123 Creative Street</p>
-                        <p className="text-muted-foreground">New York, NY 10001</p>
+                        <h3 className="text-xl font-light text-foreground mb-2">Email Us</h3>
+                        <p className="text-muted-foreground">info@allininternational.com</p>
+                        <p className="text-muted-foreground">For detailed project discussions</p>
                       </div>
                     </div>
                   </GlassCard>

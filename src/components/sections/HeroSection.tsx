@@ -4,15 +4,15 @@ import { NeuroButton } from '../ui/NeuroButton';
 import heroImage from '@/assets/hero-image.jpg';
 
 export function HeroSection() {
-  const scrollToProducts = () => {
-    const element = document.querySelector('#products');
+  const scrollToServices = () => {
+    const element = document.querySelector('#services');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section style={{ marginTop: '5rem' }}>
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
@@ -20,16 +20,18 @@ export function HeroSection() {
           alt="All In International Studio"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background/80" />
+        {/* Theme-aware overlay: only show in dark mode */}
+        <div className="hidden dark:block absolute inset-0 bg-gradient-to-b from-background/60 via-background/20 to-background/60 dark:from-background/80 dark:via-background/40 dark:to-background/80" />
+        <div className="hidden dark:block absolute inset-0 bg-gradient-to-r from-background/30 via-transparent to-background/30 dark:from-background/50 dark:via-transparent dark:to-background/50" />
       </div>
 
       {/* Floating Hero Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
         <motion.h1
-          className="text-6xl md:text-8xl font-light mb-8 gradient-text leading-tight"
+          className="text-6xl md:text-8xl font-light mb-8 gradient-text leading-tight drop-shadow-lg"
           initial={{ opacity: 0, y: 100, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }} 
         >
           Creative Media
           <br />
@@ -37,13 +39,15 @@ export function HeroSection() {
         </motion.h1>
 
         <motion.p
-          className="text-xl md:text-2xl font-light mb-12 max-w-2xl mx-auto opacity-90"
+          className="mb-12"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 1, ease: 'easeOut' }}
         >
-          Elevating brands through stunning visual media and premium branded products. 
-          Where creativity meets luxury, and innovation drives excellence.
+          <span className="inline-block text-xl md:text-2xl font-light max-w-2xl mx-auto opacity-90 drop-shadow-md text-foreground px-6 py-4 rounded-2xl bg-white/80 dark:bg-transparent">
+            Elevating brands through stunning visual media and premium branded products. 
+            Where creativity meets luxury, and innovation drives excellence.
+          </span>
         </motion.p>
 
         <motion.div
@@ -53,10 +57,10 @@ export function HeroSection() {
         >
           <NeuroButton
             size="lg"
-            onClick={scrollToProducts}
-            className="transform hover:scale-110"
+            onClick={scrollToServices}
+            className="transform hover:scale-110 drop-shadow-lg"
           >
-            Explore Our Work
+            Explore Our Services
           </NeuroButton>
         </motion.div>
       </div>
@@ -68,8 +72,8 @@ export function HeroSection() {
             key={i}
             className="absolute w-2 h-2 bg-primary/30 rounded-full"
             initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
+              x: typeof window !== 'undefined' ? Math.random() * window.innerWidth : 0,
+              y: typeof window !== 'undefined' ? Math.random() * window.innerHeight : 0,
             }}
             animate={{
               y: [null, -100, null],
@@ -91,7 +95,7 @@ export function HeroSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5, duration: 1 }}
       >
-        <div className="w-6 h-10 border-2 border-primary/50 rounded-full flex justify-center">
+        <div className="w-6 h-10 border-2 border-primary/50 rounded-full flex justify-center backdrop-blur-sm bg-background/20">
           <motion.div
             className="w-1 h-3 bg-primary rounded-full mt-2"
             animate={{ y: [0, 8, 0] }}

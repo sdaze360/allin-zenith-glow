@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/sections/HeroSection';
-import { ProductsSection } from '@/components/sections/ProductsSection';
+import { ServicesSection } from '@/components/sections/ServicesSection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { MissionSection } from '@/components/sections/MissionSection';
 import { FAQSection } from '@/components/sections/FAQSection';
@@ -20,7 +20,7 @@ const Index = () => {
       <Navigation />
       <WhatsAppFloat />
       <HeroSection />
-      <ProductsSection />
+      <ServicesSection />
       <TestimonialsSection />
       <MissionSection />
       <FAQSection />
