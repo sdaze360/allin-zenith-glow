@@ -18,17 +18,17 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 15%;
 
-    /* Primary: Brand Blue/Teal for light mode */
-    --primary: 197 100% 40%; /* Brand blue/teal */
+    /* Primary: Brand Deep Crimson (light mode) */
+    --primary: 0 69% 32%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 197 100% 60%;
+    --primary-glow: 0 69% 42%;
 
     /* Secondary: Soft Gray - Enhanced */
     --secondary: 210 11% 93%;
     --secondary-foreground: 0 0% 15%;
 
-    /* Accent: Royal Blue - Now secondary accent */
-    --accent: 217 91% 60%;
+    /* Accent: Golden Orange */
+    --accent: 37 69% 51%;
     --accent-foreground: 0 0% 100%;
 
     --muted: 0 0% 95%;
@@ -39,7 +39,7 @@
 
     --border: 0 0% 85%;
     --input: 0 0% 95%;
-    --ring: 197 100% 40%;
+    --ring: 0 69% 32%;
 
     --radius: 16px;
 
@@ -56,7 +56,7 @@
     --neuro-shadow: 5px 5px 10px hsl(var(--neuro-dark)), -5px -5px 10px hsl(var(--neuro-light));
 
     /* Gradients - Enhanced */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 60%, hsl(var(--accent)) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--primary)) 60%, hsl(var(--primary-glow)) 100%);
     --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--accent)) 100%);
     --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.3) 100%);
 
@@ -85,16 +85,16 @@
     --popover: 0 0% 5%;
     --popover-foreground: 0 0% 95%;
 
-    /* Primary: Brand Yellow (slightly brighter for dark mode) */
-    --primary: 48 100% 72%;
+    /* Primary: Golden Orange (dark mode for contrast) */
+    --primary: 37 69% 54%;
     --primary-foreground: 0 0% 9%;
 
     /* Secondary: Dark Gray */
     --secondary: 0 0% 10%;
     --secondary-foreground: 0 0% 95%;
 
-    /* Accent: Royal Blue */
-    --accent: 217 91% 65%;
+    /* Accent: Deep Crimson */
+    --accent: 0 69% 36%;
     --accent-foreground: 0 0% 100%;
 
     --muted: 0 0% 15%;
@@ -105,7 +105,7 @@
 
     --border: 0 0% 20%;
     --input: 0 0% 15%;
-    --ring: 48 100% 50%;
+    --ring: 37 69% 54%;
 
     /* Dark mode glassmorphism */
     --glass-bg: 0 0 0 / 0.4;

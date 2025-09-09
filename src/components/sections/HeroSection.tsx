@@ -45,8 +45,9 @@ export function HeroSection() {
           transition={{ delay: 0.5, duration: 1, ease: 'easeOut' }}
         >
           <span className="inline-block text-xl md:text-2xl font-light max-w-2xl mx-auto opacity-90 drop-shadow-md text-foreground px-6 py-4 rounded-2xl bg-white/80 dark:bg-transparent">
-            Elevating brands through stunning visual media and premium branded products. 
-            Where creativity meets luxury, and innovation drives excellence.
+            All In International Production Ltd is a dynamic creative media and production agency
+            devoted to breaking boundaries through visual storytelling and branded content.
+            Rooted in innovation, collaboration, and excellence.
           </span>
         </motion.p>
 

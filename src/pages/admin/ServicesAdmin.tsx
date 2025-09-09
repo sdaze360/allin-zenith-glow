@@ -14,8 +14,8 @@ import {
   Check
 } from 'phosphor-react';
 import { useToast } from '@/hooks/use-toast';
-import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot } from 'firebase/firestore';
+import { db, isDemoMode } from '@/lib/firebase';
 
 type Service = {
   id: string;
@@ -38,7 +38,20 @@ export default function ServicesAdmin() {
   const [icon, setIcon] = useState('Wrench');
 
   useEffect(() => {
-    fetchServices();
+    // Realtime listener so admin sees current services immediately
+    const servicesCollection = collection(db, 'services');
+    const unsubscribe = onSnapshot(servicesCollection, (snapshot) => {
+      const servicesList = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })) as Service[];
+      setServices(servicesList);
+      setLoading(false);
+    }, () => {
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const fetchServices = async () => {
@@ -93,7 +106,26 @@ export default function ServicesAdmin() {
     e.preventDefault();
     
     try {
-      if (isEditing && currentService) {
+      if (isDemoMode) {
+        if (isEditing && currentService) {
+          setServices(prev => prev.map(s => s.id === currentService.id ? {
+            ...currentService,
+            title,
+            description,
+            icon,
+          } : s));
+          toast({ title: 'Success', description: 'Service updated (demo mode).' });
+        } else {
+          const newService: Service = {
+            id: `demo-${Date.now()}`,
+            title,
+            description,
+            icon,
+          } as Service;
+          setServices(prev => [newService, ...prev]);
+          toast({ title: 'Success', description: 'Service added (demo mode).' });
+        }
+      } else if (isEditing && currentService) {
         // Update existing service
         const serviceRef = doc(db, 'services', currentService.id);
         await updateDoc(serviceRef, {
@@ -121,7 +153,9 @@ export default function ServicesAdmin() {
       }
       
       closeModal();
-      fetchServices();
+      if (!isDemoMode) {
+        fetchServices();
+      }
     } catch (error) {
       toast({
         variant: 'destructive',

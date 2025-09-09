@@ -15,9 +15,9 @@ import {
   Check
 } from 'phosphor-react';
 import { useToast } from '@/hooks/use-toast';
-import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
-import { db, storage } from '@/lib/firebase';
+import { db, storage, isDemoMode } from '@/lib/firebase';
 
 type Product = {
   id: string;
@@ -45,7 +45,20 @@ export default function ProductsAdmin() {
   const [icon, setIcon] = useState('Package');
 
   useEffect(() => {
-    fetchProducts();
+    // Realtime listener so admin sees current products immediately
+    const productsCollection = collection(db, 'products');
+    const unsubscribe = onSnapshot(productsCollection, (snapshot) => {
+      const productsList = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })) as Product[];
+      setProducts(productsList);
+      setLoading(false);
+    }, () => {
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const fetchProducts = async () => {
@@ -115,16 +128,55 @@ export default function ProductsAdmin() {
     e.preventDefault();
     
     try {
+      // Require an image when adding a new product
+      if (!isEditing && !imageFile) {
+        toast({
+          variant: 'destructive',
+          title: 'Image required',
+          description: 'Please upload an image for the product before saving.',
+        });
+        return;
+      }
       let imageUrl = currentProduct?.image || '';
-      
-      // Upload image if a new one is selected
+
+      // Resolve image URL
       if (imageFile) {
-        const storageRef = ref(storage, `products/${Date.now()}_${imageFile.name}`);
-        await uploadBytes(storageRef, imageFile);
-        imageUrl = await getDownloadURL(storageRef);
+        if (isDemoMode) {
+          // In demo mode, use the local preview URL (no upload)
+          imageUrl = imagePreview;
+        } else {
+          // Upload to Firebase Storage
+          const storageRef = ref(storage, `products/${Date.now()}_${imageFile.name}`);
+          await uploadBytes(storageRef, imageFile);
+          imageUrl = await getDownloadURL(storageRef);
+        }
       }
       
-      if (isEditing && currentProduct) {
+      if (isDemoMode) {
+        // In demo mode, simulate create/update in local state
+        if (isEditing && currentProduct) {
+          setProducts(prev => prev.map(p => p.id === currentProduct.id ? {
+            ...currentProduct,
+            name,
+            description,
+            price,
+            icon,
+            image: imageUrl || currentProduct.image,
+          } : p));
+          toast({ title: 'Success', description: 'Product updated (demo mode).' });
+        } else {
+          const newProduct: Product = {
+            id: `demo-${Date.now()}`,
+            name,
+            description,
+            price,
+            icon,
+            image: imageUrl,
+          } as Product;
+          setProducts(prev => [newProduct, ...prev]);
+          toast({ title: 'Success', description: 'Product added (demo mode).' });
+        }
+      } else if (isEditing && currentProduct) {
         // Update existing product
         const productRef = doc(db, 'products', currentProduct.id);
         await updateDoc(productRef, {
@@ -156,7 +208,9 @@ export default function ProductsAdmin() {
       }
       
       closeModal();
-      fetchProducts();
+      if (!isDemoMode) {
+        fetchProducts();
+      }
     } catch (error) {
       toast({
         variant: 'destructive',
@@ -335,8 +389,8 @@ export default function ProductsAdmin() {
               </div>
               
               <div className="space-y-2">
-                <Label>Product Image</Label>
-                <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-4 text-center">
+                <Label>Product Image <span className="text-destructive">*</span></Label>
+                <div className="relative border-2 border-dashed border-muted-foreground/25 rounded-lg p-4 text-center">
                   {imagePreview ? (
                     <div className="relative">
                       <img 
@@ -368,6 +422,7 @@ export default function ProductsAdmin() {
                     accept="image/*"
                     onChange={handleImageChange}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    aria-label="Upload product image"
                   />
                 </div>
               </div>

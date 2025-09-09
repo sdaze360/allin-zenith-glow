@@ -24,7 +24,7 @@ import {
   Wrench
 } from 'phosphor-react';
 import { motion } from 'framer-motion';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 // Fallback images
@@ -98,38 +98,41 @@ export default function ProductsServices() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch products from Firebase
-        const productsCollection = collection(db, 'products');
-        const productsSnapshot = await getDocs(productsCollection);
-        const productsList = productsSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        })) as Product[];
-        
-        // Fetch services from Firebase
-        const servicesCollection = collection(db, 'services');
-        const servicesSnapshot = await getDocs(servicesCollection);
-        const servicesList = servicesSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        })) as Service[];
-        
-        // If we have data from Firebase, use it; otherwise, use fallback data
-        setProducts(productsList.length > 0 ? productsList : fallbackProducts);
-        setServices(servicesList.length > 0 ? servicesList : fallbackServices);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        // Use fallback data if Firebase fetch fails
-        setProducts(fallbackProducts);
-        setServices(fallbackServices);
-      } finally {
+    // Realtime listeners so updates reflect immediately after admin changes
+    const productsRef = collection(db, 'products');
+    const servicesRef = collection(db, 'services');
+
+    let firstProducts = true;
+    let firstServices = true;
+
+    const unsubscribeProducts = onSnapshot(productsRef, (snapshot) => {
+      const list = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Product[];
+      setProducts(list.length > 0 ? list : fallbackProducts);
+      if (firstProducts) {
+        firstProducts = false;
         setLoading(false);
       }
+    }, (error) => {
+      console.error('Products listener error:', error);
+      setProducts(fallbackProducts);
+      setLoading(false);
+    });
+
+    const unsubscribeServices = onSnapshot(servicesRef, (snapshot) => {
+      const list = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Service[];
+      setServices(list.length > 0 ? list : fallbackServices);
+      if (firstServices) {
+        firstServices = false;
+      }
+    }, (error) => {
+      console.error('Services listener error:', error);
+      setServices(fallbackServices);
+    });
+
+    return () => {
+      unsubscribeProducts();
+      unsubscribeServices();
     };
-    
-    fetchData();
   }, []);
 
   // Helper function to get the appropriate icon component

@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { List, X } from 'phosphor-react';
 import { ThemeToggle } from './ThemeToggle';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Logo } from './Logo';
+import { useAuth } from '@/contexts/AuthContext';
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { currentUser, isAdmin } = useAuth();
 
   const navItems = [
     { label: 'Home', href: '/' },
@@ -49,12 +52,11 @@ export function Navigation() {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <motion.div
-              className="text-2xl font-light gradient-text text-brand-gold dark:text-inherit"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              All In International
+              <Logo />
             </motion.div>
 
             {/* Desktop Navigation */}
@@ -71,6 +73,15 @@ export function Navigation() {
                   {item.label}
                 </motion.button>
               ))}
+              <motion.button
+                onClick={() => handleNavigation(currentUser && isAdmin ? '/admin/products' : '/login')}
+                className="neuro-button px-4 py-2"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 + navItems.length * 0.1, duration: 0.8 }}
+              >
+                {currentUser && isAdmin ? 'Dashboard' : 'Admin'}
+              </motion.button>
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -129,6 +140,15 @@ export function Navigation() {
                     {item.label}
                   </motion.button>
                 ))}
+                <motion.button
+                  onClick={() => handleNavigation(currentUser && isAdmin ? '/admin/products' : '/login')}
+                  className="block w-full text-left text-xl font-light text-foreground/80 hover:text-primary smooth-transition"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: navItems.length * 0.1, duration: 0.3 }}
+                >
+                  {currentUser && isAdmin ? 'Dashboard' : 'Admin'}
+                </motion.button>
               </nav>
             </motion.div>
           </motion.div>

@@ -22,6 +22,11 @@ export default {
 				inter: ['Inter', 'sans-serif'],
 			},
 			colors: {
+				'deep-crimson': '#8B1A1A',
+				'golden-orange': '#D4902A',
+				'warm-sand': '#D4B26A',
+				'earthy-taupe': '#A69580',
+				'coffee-brown': '#6F4E37',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',

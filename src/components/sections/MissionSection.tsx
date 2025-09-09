@@ -32,11 +32,12 @@ export function MissionSection() {
       <div className="container mx-auto">
         <AnimatedSection className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-light mb-6 gradient-text">
-            Our Mission
+            Our Vision
           </h2>
           <p className="text-xl opacity-80 max-w-3xl mx-auto mb-8">
-            To revolutionize brand experiences through exceptional creative media and premium products, 
-            empowering businesses to connect with their audiences in meaningful, impactful ways.
+            All In International Production Ltd is a beacon of energy and determination—rooted in values like integrity,
+            a love of work, humility, and forward-thinking. The company's broader vision is to create jobs, empower others,
+            and reshape the future of youth through innovation and unity.
           </p>
         </AnimatedSection>
 
@@ -64,14 +65,13 @@ export function MissionSection() {
           <div className="max-w-4xl mx-auto">
             <GlassCard>
               <h3 className="text-3xl font-light mb-6 text-foreground">
-                Why We Built All In International
+                Our Story
               </h3>
               <p className="text-lg opacity-80 leading-relaxed">
-                In a world saturated with generic content and mass-produced merchandise, we saw an opportunity 
-                to create something extraordinary. All In International was born from the belief that every brand 
-                deserves to stand out with premium quality, innovative design, and authentic storytelling. 
-                We're not just a service provider – we're creative partners dedicated to elevating your brand 
-                to new heights of excellence and recognition.
+                All In International Production Ltd was born from life experience, dreams, and a deep entrepreneurial
+                drive by its founder, Mr. Tuyishimire Christian. The company's journey reflects the spirit of a man
+                who faced adversity head-on, but remained dedicated to creating meaningful change in his community,
+                among youth, and across the nation through practical action.
               </p>
             </GlassCard>
           </div>
