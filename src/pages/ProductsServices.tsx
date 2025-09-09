@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/sections/Footer';
 import { WhatsAppFloat } from '@/components/WhatsAppFloat';
@@ -19,76 +19,143 @@ import {
   Notebook,
   CaretRight,
   Upload,
-  Umbrella
+  Umbrella,
+  Package,
+  Wrench
 } from 'phosphor-react';
 import { motion } from 'framer-motion';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+
+// Fallback images
 import productTshirt from '@/assets/product-tshirt.jpg';
 import productMug from '@/assets/product-mug.jpg';
 import productNotebook from '@/assets/product-notebook.jpg';
 
-const products = [
+// Define types for products and services
+type Product = {
+  id?: string;
+  icon?: string;
+  name: string;
+  description: string;
+  price: string;
+  image?: string;
+};
+
+type Service = {
+  id?: string;
+  icon?: string;
+  title: string;
+  description: string;
+};
+
+// Fallback data in case Firebase fetch fails
+const fallbackProducts = [
   { 
-    icon: TShirt, 
+    icon: 'TShirt', 
     name: 'Premium Brand Tee', 
     description: 'Ultra-soft cotton blend with embroidered logo. Perfect for team building and brand promotion.',
     price: '$45',
     image: productTshirt 
   },
   { 
-    icon: Coffee, 
+    icon: 'Coffee', 
     name: 'Luxury Coffee Mug', 
     description: 'Ceramic mug with gold accents and custom branding. Ideal for corporate gifts and promotions.',
     price: '$25',
     image: productMug 
   },
   { 
-    icon: Notebook, 
+    icon: 'Notebook', 
     name: 'Executive Notebook', 
     description: 'Leather-bound with gold embossing and premium paper quality. Perfect for business professionals.',
     price: '$35',
     image: productNotebook 
   },
-  { icon: Coffee, name: 'Branded Bottles', description: 'Eco-friendly promotional drinkware with custom designs', price: '$30' },
-  { icon: Watch, name: 'Wristbands', description: 'Silicone and fabric promotional wristbands for events', price: '$8' },
-  { icon: CaretRight, name: 'Buttons', description: 'Custom pin badges and promotional buttons', price: '$5' },
-  { icon: Upload, name: 'USBs', description: 'Branded flash drives and tech accessories', price: '$20' },
-  { icon: Umbrella, name: 'Umbrellas', description: 'Weather protection with your brand', price: '$40' },
 ];
 
-const services = [
+const fallbackServices = [
   {
-    icon: Palette,
+    icon: 'Palette',
     title: 'Logo Design',
     description: 'Unique brand identities that capture your essence and resonate with your audience.',
   },
   {
-    icon: VideoCamera,
+    icon: 'VideoCamera',
     title: 'Event Video Editing',
     description: 'Professional video production and editing for corporate events and campaigns.',
   },
   {
-    icon: MegaphoneSimple,
+    icon: 'MegaphoneSimple',
     title: 'Social Media Posters',
     description: 'Eye-catching graphics designed for maximum engagement across all platforms.',
-  },
-  {
-    icon: Printer,
-    title: 'Printing (Flyers, Banners)',
-    description: 'High-quality print materials from business cards to large format displays.',
-  },
-  {
-    icon: Briefcase,
-    title: 'Company Profiles',
-    description: 'Comprehensive corporate documents that showcase your business professionally.',
-  },
-  {
-    icon: Camera,
-    title: 'Product Photography',
-    description: 'Studio-quality product shots that make your offerings irresistible.',
   },
 ];
 
 export default function ProductsServices() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch products from Firebase
+        const productsCollection = collection(db, 'products');
+        const productsSnapshot = await getDocs(productsCollection);
+        const productsList = productsSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })) as Product[];
+        
+        // Fetch services from Firebase
+        const servicesCollection = collection(db, 'services');
+        const servicesSnapshot = await getDocs(servicesCollection);
+        const servicesList = servicesSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })) as Service[];
+        
+        // If we have data from Firebase, use it; otherwise, use fallback data
+        setProducts(productsList.length > 0 ? productsList : fallbackProducts);
+        setServices(servicesList.length > 0 ? servicesList : fallbackServices);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        // Use fallback data if Firebase fetch fails
+        setProducts(fallbackProducts);
+        setServices(fallbackServices);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, []);
+
+  // Helper function to get the appropriate icon component
+  const getIconComponent = (iconName: string) => {
+    const iconMap: Record<string, any> = {
+      'Palette': Palette,
+      'VideoCamera': VideoCamera,
+      'MegaphoneSimple': MegaphoneSimple,
+      'Printer': Printer,
+      'Briefcase': Briefcase,
+      'Camera': Camera,
+      'Tote': Tote,
+      'Coffee': Coffee,
+      'TShirt': TShirt,
+      'Watch': Watch,
+      'Notebook': Notebook,
+      'CaretRight': CaretRight,
+      'Upload': Upload,
+      'Umbrella': Umbrella,
+      'Package': Package,
+      'Wrench': Wrench
+    };
+    
+    return iconMap[iconName] || Package;
+  };
+
   const handleWhatsAppOrder = () => {
     window.open('https://wa.me/250780111110', '_blank');
   };
@@ -139,53 +206,63 @@ export default function ProductsServices() {
               </p>
             </AnimatedSection>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-              {products.map((product, index) => (
-                <AnimatedSection key={product.name} delay={index * 0.1}>
-                  <GlassCard className="text-center group h-full flex flex-col">
-                    <div className="relative overflow-hidden rounded-2xl mb-6 flex-shrink-0">
-                      {product.image ? (
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-48 object-cover transform group-hover:scale-110 smooth-transition"
-                        />
-                      ) : (
-                        <div className="w-full h-48 bg-muted/20 rounded-2xl flex items-center justify-center">
-                          <product.icon size={48} className="text-primary group-hover:scale-110 transition-transform duration-300" weight="light" />
+            {loading ? (
+              <div className="flex justify-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                {products.map((product, index) => {
+                  const IconComponent = product.icon ? getIconComponent(product.icon) : Package;
+                  
+                  return (
+                    <AnimatedSection key={product.id || product.name} delay={index * 0.1}>
+                      <GlassCard className="text-center group h-full flex flex-col">
+                        <div className="relative overflow-hidden rounded-2xl mb-6 flex-shrink-0">
+                          {product.image ? (
+                            <img
+                              src={product.image}
+                              alt={product.name}
+                              className="w-full h-48 object-cover transform group-hover:scale-110 smooth-transition"
+                            />
+                          ) : (
+                            <div className="w-full h-48 bg-muted/20 rounded-2xl flex items-center justify-center">
+                              <IconComponent size={48} className="text-primary group-hover:scale-110 transition-transform duration-300" weight="light" />
+                            </div>
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 smooth-transition" />
                         </div>
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 smooth-transition" />
-                    </div>
-                    
-                    <div className="flex-1 flex flex-col">
-                      <h3 className="text-xl font-medium mb-3 text-foreground">
-                        {product.name}
-                      </h3>
-                      
-                      <p className="text-muted-foreground mb-4 text-sm leading-relaxed flex-1">
-                        {product.description}
-                      </p>
-                      
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-2xl font-light text-primary">
-                          {product.price}
-                        </span>
-                      </div>
-                      
-                      <AppleButton 
-                        onClick={handleWhatsAppOrder}
-                        variant="primary"
-                        size="sm"
-                        className="w-full"
-                      >
-                        WhatsApp to Order
-                      </AppleButton>
-                    </div>
-                  </GlassCard>
-                </AnimatedSection>
-              ))}
-            </div>
+                        
+                        <div className="flex-1 flex flex-col">
+                          <h3 className="text-xl font-medium mb-3 text-foreground">
+                            {product.name}
+                          </h3>
+                          
+                          <p className="text-muted-foreground mb-4 text-sm leading-relaxed flex-1">
+                            {product.description}
+                          </p>
+                          
+                          <div className="flex items-center justify-between mb-4">
+                            <span className="text-2xl font-light text-primary">
+                              {product.price}
+                            </span>
+                          </div>
+                          
+                          <AppleButton 
+                            onClick={handleWhatsAppOrder}
+                            variant="primary"
+                            size="sm"
+                            className="w-full"
+                          >
+                            WhatsApp to Order
+                          </AppleButton>
+                        </div>
+                      </GlassCard>
+                    </AnimatedSection>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </section>
 
@@ -201,25 +278,35 @@ export default function ProductsServices() {
               </p>
             </AnimatedSection>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {services.map((service, index) => (
-                <AnimatedSection key={service.title} delay={index * 0.1}>
-                  <GlassCard className="h-full">
-                    <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
-                      <service.icon size={32} className="text-primary" weight="light" />
-                    </div>
-                    
-                    <h3 className="text-2xl font-medium mb-4 text-foreground">
-                      {service.title}
-                    </h3>
-                    
-                    <p className="text-muted-foreground leading-relaxed">
-                      {service.description}
-                    </p>
-                  </GlassCard>
-                </AnimatedSection>
-              ))}
-            </div>
+            {loading ? (
+              <div className="flex justify-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                {services.map((service, index) => {
+                  const IconComponent = service.icon ? getIconComponent(service.icon) : Wrench;
+                  
+                  return (
+                    <AnimatedSection key={service.id || service.title} delay={index * 0.1}>
+                      <GlassCard className="h-full">
+                        <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                          <IconComponent size={32} className="text-primary" weight="light" />
+                        </div>
+                        
+                        <h3 className="text-2xl font-medium mb-4 text-foreground">
+                          {service.title}
+                        </h3>
+                        
+                        <p className="text-muted-foreground leading-relaxed">
+                          {service.description}
+                        </p>
+                      </GlassCard>
+                    </AnimatedSection>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </section>
 
