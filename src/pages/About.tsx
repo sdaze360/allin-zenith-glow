@@ -65,16 +65,11 @@ export default function About() {
               <AnimatedSection delay={0.2}>
                 <GlassCard>
                   <h2 className="text-3xl font-light mb-6 text-foreground">Our Story</h2>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    Founded in 2020, All In International emerged from a simple belief: 
-                    every brand deserves to tell its story in the most compelling way possible. 
-                    What started as a small creative studio has evolved into a comprehensive 
-                    media production and branded merchandise powerhouse.
-                  </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    Our journey began with a mission to bridge the gap between creativity 
-                    and commerce, helping brands not just communicate, but truly connect 
-                    with their audiences through premium quality and innovative design.
+                    All In International Production Ltd was born from life experience, dreams, and a deep entrepreneurial drive by 
+                    its founder, Mr. Tuyishimire Christian. The company's journey reflects the spirit of a man who faced adveristy 
+                    head-on, but remained dedicated to creating meaningful change in his community, among youth, and across the 
+                    nation through practical action.
                   </p>
                 </GlassCard>
               </AnimatedSection>
@@ -82,15 +77,9 @@ export default function About() {
               <AnimatedSection delay={0.4}>
                 <GlassCard>
                   <h2 className="text-3xl font-light mb-6 text-foreground">Our Vision</h2>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    To be the global leader in creative brand experiences, setting new 
-                    standards for quality, innovation, and client satisfaction in the 
-                    creative media and branded merchandise industry.
-                  </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    We envision a future where every brand, regardless of size, has access 
-                    to world-class creative solutions that drive meaningful engagement 
-                    and lasting impact.
+                    All In International Production Ltd is a beacon of energy and determination—rooted in values like integrity, a love of work, humility, and 
+                    forward-thinking. The company's broader vision is to create jobs, empower others, and reshape the future of youth through innovation and unity.
                   </p>
                 </GlassCard>
               </AnimatedSection>

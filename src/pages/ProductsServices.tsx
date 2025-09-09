@@ -28,9 +28,12 @@ import { collection, getDocs, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 // Fallback images
-import productTshirt from '@/assets/product-tshirt.jpg';
-import productMug from '@/assets/product-mug.jpg';
-import productNotebook from '@/assets/product-notebook.jpg';
+import productTshirt from '@/assets/tshirt.png';
+import productMug from '@/assets/mug.png';
+import productNotebook from '@/assets/notebook.png';
+import productCap from '@/assets/cap.png';
+import productHandbag from '@/assets/handbag.png';
+import productGiftbag from '@/assets/giftbag.png';
 
 // Define types for products and services
 type Product = {
@@ -54,14 +57,14 @@ const fallbackProducts = [
   { 
     icon: 'TShirt', 
     name: 'Premium Brand Tee', 
-    description: 'Ultra-soft cotton blend with embroidered logo. Perfect for team building and brand promotion.',
+    description: 'Ultra-soft cotton blend with embroidered logo in our signature crimson color. Features the All In logo on the chest and decorative stripes at the bottom. Perfect for team building and brand promotion.',
     price: '$45',
     image: productTshirt 
   },
   { 
     icon: 'Coffee', 
     name: 'Luxury Coffee Mug', 
-    description: 'Ceramic mug with gold accents and custom branding. Ideal for corporate gifts and promotions.',
+    description: 'Ceramic mug with gold accents and custom branding in our signature colors. Available in white and crimson options. Ideal for corporate gifts and promotions.',
     price: '$25',
     image: productMug 
   },
@@ -71,6 +74,27 @@ const fallbackProducts = [
     description: 'Leather-bound with gold embossing and premium paper quality. Perfect for business professionals.',
     price: '$35',
     image: productNotebook 
+  },
+  {
+    icon: 'CaretRight',
+    name: 'Premium Snapback Cap',
+    description: 'High-quality crimson snapback cap featuring the All In logo embroidered in gold. Adjustable size with comfortable fit for all-day wear. Perfect for team events and brand representation.',
+    price: '$30',
+    image: productCap
+  },
+  {
+    icon: 'Tote',
+    name: 'Branded Tote Bag',
+    description: 'Durable crimson tote bag with reinforced handles and the All In logo. Spacious interior with inner pocket. Ideal for conferences, events, and everyday use.',
+    price: '$20',
+    image: productHandbag
+  },
+  {
+    icon: 'Package',
+    name: 'Luxury Gift Bag',
+    description: 'Premium crimson gift bag with gold accents and the All In logo. Features a patterned interior and sturdy rope handles. Perfect for corporate gifting and special occasions.',
+    price: '$15',
+    image: productGiftbag
   },
 ];
 
@@ -226,14 +250,14 @@ export default function ProductsServices() {
                             <img
                               src={product.image}
                               alt={product.name}
-                              className="w-full h-48 object-cover transform group-hover:scale-110 smooth-transition"
+                              className="w-4/5 h-48 object-contain mx-auto transform group-hover:scale-110 transition-transform duration-300"
                             />
                           ) : (
                             <div className="w-full h-48 bg-muted/20 rounded-2xl flex items-center justify-center">
                               <IconComponent size={48} className="text-primary group-hover:scale-110 transition-transform duration-300" weight="light" />
                             </div>
                           )}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 smooth-transition" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </div>
                         
                         <div className="flex-1 flex flex-col">

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface LogoProps {
   className?: string;
@@ -18,7 +19,7 @@ export function Logo({ className = '' }: LogoProps) {
   };
 
   return (
-    <div className={`relative flex items-center ${className}`}>
+    <Link to="/" className={`relative flex items-center ${className} hover:opacity-80 transition-opacity`}>
       <img
         src={src}
         onError={handleError}
@@ -28,6 +29,6 @@ export function Logo({ className = '' }: LogoProps) {
       <span className="ml-3 text-xl font-light whitespace-nowrap">
         All In International
       </span>
-    </div>
+    </Link>
   );
 }
